@@ -1,0 +1,4 @@
+---
+subject: Hello world
+---
+Welcome to Flask-Mailman-Templates !
