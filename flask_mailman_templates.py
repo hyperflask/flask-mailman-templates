@@ -76,7 +76,9 @@ def render_mail(filename, **ctx):
     state = current_app.extensions["mail_templates"]
     frontmatter = get_template_frontmatter(state.jinja_env, filename, loads=yaml.safe_load)
     if frontmatter:
-        ctx = dict(frontmatter, **ctx)
+        for key, value in frontmatter.items():
+            if key not in ctx:
+                ctx[key] = state.jinja_env.from_string(value).render(**ctx)
     content = state.jinja_env.get_template(filename).render(**ctx)
 
     _, ext = os.path.splitext(filename)
@@ -84,7 +86,9 @@ def render_mail(filename, **ctx):
     html_body = None
     inline_css = state.inline_css
     if ext == ".mjml":
-        html_body = mjml_to_html(content)
+        result = mjml_to_html(content)
+        assert not result.errors
+        html_body = result.html
         inline_css = False
     if ext == ".html":
         html_body = content
