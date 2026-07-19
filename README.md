@@ -36,6 +36,8 @@ subject: Hello world
 Hello from Flask!
 ```
 
+The file body is a Jinja template and the frontmatter values are templated as well.
+
 Send your email using either `TemplatedEmailMessage` or `send_mail()`:
 
 ```python
@@ -48,6 +50,8 @@ msg.send()
 
 send_mail("hello.txt", "hello@example.com")
 ```
+
+Template variables can be provided as keywork arguments.
 
 The frontmatter is optionnal and options can be passed as keyword arguments (keyword args override the frontmatter if both are used)
 
@@ -64,7 +68,7 @@ send_mail("hello.txt", "hello@example.com", subject="hello world")
 | Markdown | md | markdown | Text + HTML email |
 | [MJML](https://mjml.io) | mjml | mjml | HTML email only |
 
-If [html2text](https://pypi.org/project/html2text/) is installed, HTML emails will be automatically converted to text and both content types will be attached (does not apply to markdown).
+HTML emails will be automatically converted to text and both content types will be attached (does not apply to markdown).
 
 ## Configuration
 
